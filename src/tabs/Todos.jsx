@@ -43,42 +43,75 @@ export const Todos = () => {
   };
 
   const handleEditTodo = (text) => {
-    if (text === currentTodo.text) {
+    // if (text === currentTodo.text) {
+    //   alert("Todo with this text already exists!");
+    //   return;
+    // }
+    // const originalText = currentTodo.text;
+    // if (originalText.toLowerCase() === text.toLowerCase()) {
+    //   setTodos((prevTodos) =>
+    //     prevTodos.map((todo) =>
+    //       todo.id === currentTodo.id ? { ...currentTodo, text } : todo
+    //     )
+    //   );
+    // }
+    // if (findTodo(text)) {
+    //   const answer = confirm(
+    //     "Todo with this text already exists!!!Are you realy want to change this todo"
+    //   );
+    //   if (answer) {
+    //     setTodos((prevTodos) =>
+    //       prevTodos.map((todo) =>
+    //         todo.id === currentTodo.id ? { ...currentTodo, text } : todo
+    //       )
+    //     );
+    //   }
+    // }
+    // setTodos((prevTodos) =>
+    //   prevTodos.map((todo) =>
+    //     todo.id === currentTodo.id ? { ...currentTodo, text } : todo
+    //   )
+    // );
+    // cancelUpdate();
+
+    const originalText = currentTodo.text;
+
+    // Якщо текст не змінився
+    if (text === originalText) {
       alert("Todo with this text already exists!");
       return;
     }
 
-    const originalText = currentTodo.text;
-
+    // Якщо змінився лише регістр
     if (originalText.toLowerCase() === text.toLowerCase()) {
-      setTodos((prevTodos) =>
-        prevTodos.map((todo) =>
-          todo.id === currentTodo.id ? { ...currentTodo, text } : todo
-        )
-      );
+      updateTodoList(text);
+      cancelUpdate();
+
+      return;
     }
 
+    // Якщо знайдено іншу тудушку з таким самим текстом
     if (findTodo(text)) {
       const answer = confirm(
-        "Todo with this text already exists!!!Are you realy want to change this todo"
+        "Todo with this text already exists!!! Are you sure you want to change this todo?"
       );
 
-      if (answer) {
-        setTodos((prevTodos) =>
-          prevTodos.map((todo) =>
-            todo.id === currentTodo.id ? { ...currentTodo, text } : todo
-          )
-        );
+      if (!answer) {
+        return;
       }
     }
 
+    // Оновлюємо тудушку, якщо перевірки пройдені
+    updateTodoList(text);
+    cancelUpdate();
+  };
+
+  const updateTodoList = (text) => {
     setTodos((prevTodos) =>
       prevTodos.map((todo) =>
         todo.id === currentTodo.id ? { ...currentTodo, text } : todo
       )
     );
-
-    cancelUpdate();
   };
 
   return (
