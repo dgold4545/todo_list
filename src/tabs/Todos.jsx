@@ -48,10 +48,29 @@ export const Todos = () => {
       return;
     }
 
-    // if (findTodo(text)) {
-    //   alert("Todo with this text already exists!");
-    //   return;
-    // }
+    const originalText = currentTodo.text;
+
+    if (originalText.toLowerCase() === text.toLowerCase()) {
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.id === currentTodo.id ? { ...currentTodo, text } : todo
+        )
+      );
+    }
+
+    if (findTodo(text)) {
+      const answer = confirm(
+        "Todo with this text already exists!!!Are you realy want to change this todo"
+      );
+
+      if (answer) {
+        setTodos((prevTodos) =>
+          prevTodos.map((todo) =>
+            todo.id === currentTodo.id ? { ...currentTodo, text } : todo
+          )
+        );
+      }
+    }
 
     setTodos((prevTodos) =>
       prevTodos.map((todo) =>
@@ -61,6 +80,7 @@ export const Todos = () => {
 
     cancelUpdate();
   };
+
   return (
     <>
       {isEditing ? (
