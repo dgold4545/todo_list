@@ -43,15 +43,15 @@ export const Todos = () => {
   };
 
   const handleEditTodo = (text) => {
-    // if (text === currentTodo.text) {
-    //   alert("Todo with this text already exists!");
-    //   return;
-    // }
-
-    if (findTodo(text)) {
+    if (text === currentTodo.text) {
       alert("Todo with this text already exists!");
       return;
     }
+
+    // if (findTodo(text)) {
+    //   alert("Todo with this text already exists!");
+    //   return;
+    // }
 
     setTodos((prevTodos) =>
       prevTodos.map((todo) =>
