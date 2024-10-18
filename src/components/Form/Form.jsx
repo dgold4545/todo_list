@@ -8,7 +8,11 @@ export const Form = ({ onSubmit }) => {
     const form = event.target;
 
     const text = form.elements.search.value.trim();
-
+    if (text === "") {
+      alert("Todo can not be empty");
+      form.reset();
+      return;
+    }
     onSubmit(text);
 
     form.reset();
